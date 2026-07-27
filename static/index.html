@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundry Local - Yerel RAG Asistanı</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Veri Yönetimi -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-brain-circuit logo-icon"></i>
+                <h2>Foundry Local</h2>
+                <span class="badge">Offline RAG</span>
+            </div>
+
+            <div class="sidebar-section">
+                <h3><i class="fa-solid fa-database"></i> Veritabanı Durumu</h3>
+                <div class="status-card">
+                    <div class="status-item">
+                        <span class="label">Durum:</span>
+                        <span id="db-status-badge" class="badge-status offline">Bağlanıyor...</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">Metin Parçaları:</span>
+                        <strong id="db-chunk-count">0</strong>
+                    </div>
+                    
+                    <div class="upload-area">
+                        <input type="file" id="file-input" accept=".txt" style="display: none;">
+                        <label for="file-input" class="btn btn-secondary upload-label">
+                            <i class="fa-solid fa-file-arrow-up"></i> Belge Yükle (.txt)
+                        </label>
+                        <div id="upload-filename" class="upload-filename"></div>
+                    </div>
+
+                    <button id="btn-ingest" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrows-rotate"></i> Yeniden İndeksle
+                    </button>
+                </div>
+            </div>
+
+            <div class="sidebar-section info-section">
+                <h3><i class="fa-solid fa-circle-info"></i> RAG Nasıl Çalışır?</h3>
+                <p>Belgeleriniz <code>data.txt</code> içinden veya web arayüzünden yüklenen dosyalardan okunarak yerel gömme modeliyle vektörleştirilir ve SQLite'a saklanır. Sorularınız, bu vektörler ile yerel olarak kıyaslanır ve en benzer kaynaklar yerel dil modeline (LLM) beslenerek doğrulanmış yanıtlar oluşturulur.</p>
+            </div>
+
+            <div class="footer">
+                <p>© 2026 Microsoft Foundry Local RAG</p>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-container">
+            <header class="chat-header">
+                <div class="chat-header-info">
+                    <h1>Yerel Yapay Zeka Asistanı</h1>
+                    <p>Sadece yüklenen veya <code>data.txt</code> içerisindeki bilgilere dayanarak yanıt üretir.</p>
+                </div>
+            </header>
+
+            <!-- Sohbet Mesajları -->
+            <div id="chat-history" class="chat-history">
+                <div class="message system-message">
+                    <div class="message-content">
+                        <p>Merhaba! Ben tamamen yerel çalışan RAG asistanıyım. İnternet bağlantısına ihtiyaç duymadan, belgelerinize dayanarak sorularınızı yanıtlayabilirim. Bana bir soru sorun!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Giriş Alanı -->
+            <footer class="chat-input-area">
+                <form id="chat-form" class="chat-form">
+                    <textarea 
+                        id="user-input" 
+                        placeholder="Sorunuzu buraya yazın... (Göndermek için Enter'a basın)" 
+                        rows="1"
+                        required
+                    ></textarea>
+                    <button type="submit" id="btn-send" class="btn btn-primary">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </footer>
+        </main>
+    </div>
+</body>
+<!-- JavaScript Logic -->
+<script src="/static/script.js"></script>
+</html>

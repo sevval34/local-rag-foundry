@@ -1,0 +1,5 @@
+documents.db
+data.txt
+__pycache__/
+.local_rag_app/
+*.log
